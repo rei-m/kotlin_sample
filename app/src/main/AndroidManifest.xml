@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -23,6 +24,11 @@
         <activity
             android:name=".activities.ListSampleActivity"
             android:label="@string/title_activity_list_sample"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".activities.PagerSampleActivity"
+            android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

@@ -15,8 +15,7 @@ import me.rei_m.kotlinsample.fragments.ListSampleFragment
 class ListSampleActivity : AppCompatActivity(), InputSearchWordFragment.OnFragmentInteractionListener {
 
     companion object {
-
-        public fun createIntent(context: Context) : Intent {
+        fun createIntent(context: Context) : Intent {
             return  Intent(context, ListSampleActivity::class.java)
         }
     }
@@ -27,7 +26,8 @@ class ListSampleActivity : AppCompatActivity(), InputSearchWordFragment.OnFragme
         setSupportActionBar(toolbar)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
+            supportFragmentManager
+                    .beginTransaction()
                     .add(R.id.container, InputSearchWordFragment.newInstance())
                     .commit();
         }
@@ -38,8 +38,12 @@ class ListSampleActivity : AppCompatActivity(), InputSearchWordFragment.OnFragme
     }
 
     override fun onFragmentInteraction(wordForSearch: String) {
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager
+                .beginTransaction()
                 .replace(R.id.container, ListSampleFragment.newInstance(wordForSearch))
+                .addToBackStack(null)
                 .commit();
     }
+
+
 }

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.activity_main.*
 import kotlinx.android.synthetic.content_main.*
 import me.rei_m.kotlinsample.activities.ListSampleActivity
+import me.rei_m.kotlinsample.activities.PagerSampleActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         // ListView開く
         open_list.setOnClickListener({ v ->
             startActivity(ListSampleActivity.createIntent(this))
+        })
+
+        open_pager.setOnClickListener({ v ->
+            startActivity(PagerSampleActivity.createIntent(this))
         })
 
         // FABイベント

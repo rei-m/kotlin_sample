@@ -2,15 +2,14 @@ package me.rei_m.kotlinsample.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.AppCompatEditText
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import kotlinx.android.synthetic.fragment_input_search_word.*
-
 import me.rei_m.kotlinsample.R
 
-class InputSearchWordFragment : BaseFragment(), View.OnClickListener {
+class InputSearchWordFragment : AbstractFragment(), View.OnClickListener {
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -56,9 +55,14 @@ class InputSearchWordFragment : BaseFragment(), View.OnClickListener {
         mListener = null
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.button_search_atnd -> onClickSearchAtnd(edit_word_for_search.text.toString())
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.button_search_atnd ->
+                onClickSearchAtnd((view.findViewById(R.id.edit_word_for_search) as AppCompatEditText).text.toString())
             else -> {}
         }
     }

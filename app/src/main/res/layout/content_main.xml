@@ -25,4 +25,12 @@
         android:layout_below="@+id/hello"
         android:text="Open sample of listView" />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/open_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/open_list"
+        android:text="Open sample of ViewPager" />
+
+
 </RelativeLayout>
