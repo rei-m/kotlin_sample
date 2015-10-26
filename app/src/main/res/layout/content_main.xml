@@ -32,5 +32,11 @@
         android:layout_below="@+id/open_list"
         android:text="Open sample of ViewPager" />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/open_reactive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/open_pager"
+        android:text="Open sample of Reactive" />
 
 </RelativeLayout>

@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.RxSampleFragment">
+
+    <!-- 名前 -->
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_order_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:hint="名前" />
+
+    <!-- 郵便番号 -->
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_order_postal_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_order_name"
+        android:textSize="14sp"
+        android:hint="郵便番号" />
+
+    <!-- 住所1 -->
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_order_address_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_order_postal_code"
+        android:textSize="14sp"
+        android:hint="住所" />
+
+    <!-- 住所2 -->
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_order_address_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_order_address_first"
+        android:textSize="14sp"
+        android:hint="ビル、部屋番号など" />
+
+    <!-- 電話番号 -->
+
+    <!-- コメント -->
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_rx_submit"
+        android:text="注文する"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/edit_order_address_second"
+        android:textSize="14sp" />
+
+</RelativeLayout>

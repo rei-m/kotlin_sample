@@ -24,7 +24,7 @@ final class AtndApi private constructor() {
 
                     val request = Request
                             .Builder()
-                            .url("https://api.atnd.org/events/?format=json&keyword_or=${wordForSearch}")
+                            .url("https://api.atnd.org/events/?format=json&keyword_or=$wordForSearch")
                             .build()
 
                     val response = OkHttpClient().newCall(request).execute()

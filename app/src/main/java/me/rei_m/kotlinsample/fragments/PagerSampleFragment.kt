@@ -1,11 +1,12 @@
 package me.rei_m.kotlinsample.fragments
 
 import android.os.Bundle
-import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+import com.jakewharton.rxbinding.view.RxView
 
 import me.rei_m.kotlinsample.R
 
@@ -35,14 +36,16 @@ public class PagerSampleFragment : AbstractFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-
         val view = inflater.inflate(R.layout.fragment_pager_sample, container, false)
 
         (view.findViewById(R.id.text_position) as AppCompatTextView).text = mPosition.toString();
 
-        (view.findViewById(R.id.button_pager_item) as AppCompatButton).setOnClickListener { v ->
-
-        }
+        // 無駄にReactive!!
+        RxView.clicks(view.findViewById(R.id.button_pager_item))
+                .map({ "おされたよ" })
+                .subscribe({
+                    v -> println(v)
+                })
 
         return view
     }

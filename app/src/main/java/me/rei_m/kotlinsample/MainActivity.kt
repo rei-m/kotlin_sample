@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.activity_main.*
 import kotlinx.android.synthetic.content_main.*
 import me.rei_m.kotlinsample.activities.ListSampleActivity
 import me.rei_m.kotlinsample.activities.PagerSampleActivity
+import me.rei_m.kotlinsample.activities.RxSampleActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         open_pager.setOnClickListener({ v ->
             startActivity(PagerSampleActivity.createIntent(this))
+        })
+
+        open_reactive.setOnClickListener({ v ->
+            startActivity(RxSampleActivity.createIntent(this))
         })
 
         // FABイベント
@@ -62,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     print(c)
 """
         // ""内で$を使うと変数を参照できる。
-        val str3 = "${str1}の長さは${str1.length()}"
+        val str3 = "${str1}の長さは${str1.length}"
 
         println(str1)
         println(str2)
