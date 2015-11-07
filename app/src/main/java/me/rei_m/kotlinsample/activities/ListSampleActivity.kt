@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 
 import kotlinx.android.synthetic.activity.*
 
@@ -12,10 +11,11 @@ import me.rei_m.kotlinsample.R
 import me.rei_m.kotlinsample.fragments.InputSearchWordFragment
 import me.rei_m.kotlinsample.fragments.ListSampleFragment
 
-class ListSampleActivity : AppCompatActivity(), InputSearchWordFragment.OnFragmentInteractionListener {
+public class ListSampleActivity : AbstractActivity(),
+        InputSearchWordFragment.OnFragmentInteractionListener {
 
     companion object {
-        fun createIntent(context: Context) : Intent {
+        public fun createIntent(context: Context) : Intent {
             return  Intent(context, ListSampleActivity::class.java)
         }
     }
@@ -44,6 +44,4 @@ class ListSampleActivity : AppCompatActivity(), InputSearchWordFragment.OnFragme
                 .addToBackStack(null)
                 .commit();
     }
-
-
 }

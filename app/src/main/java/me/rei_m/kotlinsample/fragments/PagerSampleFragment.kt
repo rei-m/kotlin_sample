@@ -10,7 +10,7 @@ import com.jakewharton.rxbinding.view.RxView
 
 import me.rei_m.kotlinsample.R
 
-public class PagerSampleFragment : AbstractFragment() {
+public class PagerSampleFragment private constructor(): AbstractFragment() {
 
     private var mPosition: Int? = null
 
@@ -18,7 +18,7 @@ public class PagerSampleFragment : AbstractFragment() {
 
         private val ARG_POSITION = "ARG_POSITION"
 
-        fun newInstance(position: Int): PagerSampleFragment {
+        public fun newInstance(position: Int): PagerSampleFragment {
             val fragment = PagerSampleFragment()
             val args = Bundle()
             args.putInt(ARG_POSITION, position)

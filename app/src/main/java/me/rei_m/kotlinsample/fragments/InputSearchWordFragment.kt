@@ -9,13 +9,14 @@ import android.view.ViewGroup
 
 import me.rei_m.kotlinsample.R
 
-class InputSearchWordFragment : AbstractFragment(), View.OnClickListener {
+public class InputSearchWordFragment private constructor() : AbstractFragment(),
+        View.OnClickListener {
 
     private var mListener: OnFragmentInteractionListener? = null
 
     companion object {
 
-        fun newInstance(): InputSearchWordFragment {
+        public fun newInstance(): InputSearchWordFragment {
             val fragment = InputSearchWordFragment()
             val args = Bundle()
             fragment.arguments = args

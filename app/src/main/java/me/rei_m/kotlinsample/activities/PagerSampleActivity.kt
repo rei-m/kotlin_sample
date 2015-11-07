@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 
 import kotlinx.android.synthetic.activity_pager.*
@@ -12,10 +11,10 @@ import kotlinx.android.synthetic.activity_pager.*
 import me.rei_m.kotlinsample.R
 import me.rei_m.kotlinsample.views.adapters.SamplePagerAdaptor
 
-class PagerSampleActivity : AppCompatActivity() {
+public class PagerSampleActivity : AbstractActivity() {
 
     companion object {
-        fun createIntent(context: Context) : Intent {
+        public fun createIntent(context: Context) : Intent {
             return Intent(context, PagerSampleActivity::class.java)
         }
     }

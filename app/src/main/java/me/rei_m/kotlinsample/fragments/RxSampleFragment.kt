@@ -12,11 +12,14 @@ import com.jakewharton.rxbinding.widget.RxTextView
 import rx.Observable
 
 import me.rei_m.kotlinsample.R
+import rx.subscriptions.CompositeSubscription
 
-public class RxSampleFragment : AbstractFragment() {
+public class RxSampleFragment private constructor() : AbstractFragment() {
+
+    private val mSubscriptions = CompositeSubscription()
 
     companion object {
-        fun newInstance(): RxSampleFragment {
+        public fun newInstance(): RxSampleFragment {
             val fragment = RxSampleFragment()
             val args = Bundle()
             fragment.arguments = args
@@ -47,7 +50,7 @@ public class RxSampleFragment : AbstractFragment() {
 
         // ObservableをcombineLatestに食わして各項目のどれかに変更があった場合はStreamが流れるようにする
         // 引数の最後のAction1で流れてきた値をチェックしてすべて入力済ならtrueを流す
-        Observable.combineLatest(orderName,
+        mSubscriptions.add(Observable.combineLatest(orderName,
                 orderPostalCode,
                 orderAddressFirst,
                 orderAddressSecond,
@@ -55,8 +58,13 @@ public class RxSampleFragment : AbstractFragment() {
         }).subscribe({isValid ->
             // 流れてきたStreamに従いボタンの有効/無効を切り替える
             submitButton.isEnabled = isValid
-        })
+        }))
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mSubscriptions.unsubscribe()
     }
 }

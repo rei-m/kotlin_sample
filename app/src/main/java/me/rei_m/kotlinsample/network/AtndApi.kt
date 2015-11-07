@@ -1,4 +1,4 @@
-package me.rei_m.kotlinsample.models
+package me.rei_m.kotlinsample.network
 
 import java.net.HttpURLConnection
 
@@ -10,21 +10,20 @@ import com.squareup.okhttp.Request
 import rx.Observable
 import rx.Subscriber
 
-final class AtndApi private constructor() {
+public final class AtndApi private constructor() {
 
     companion object {
 
-        class Entity(val id: Int, val title: String)
+        public class Entity(val id: Int, val title: String)
 
-        fun request(wordForSearch: String): Observable<Entity> {
+        public fun request(wordForSearch: String, startIndex: Int): Observable<Entity> {
 
             return Observable.create(object : Observable.OnSubscribe<Entity> {
 
                 override fun call(t: Subscriber<in Entity>) {
 
-                    val request = Request
-                            .Builder()
-                            .url("https://api.atnd.org/events/?format=json&keyword_or=$wordForSearch")
+                    val request = Request.Builder()
+                            .url("https://api.atnd.org/events/?format=json&keyword_or=$wordForSearch&start=$startIndex")
                             .build()
 
                     val response = OkHttpClient().newCall(request).execute()

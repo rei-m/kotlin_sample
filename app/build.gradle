@@ -34,12 +34,13 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
+    compile 'io.realm:realm-android:0.84.1'
     compile "com.jakewharton.rxbinding:rxbinding-kotlin:$rx_android_kotlin_version"
     compile "com.jakewharton.rxbinding:rxbinding-support-v4-kotlin:$rx_android_kotlin_version"
     compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:$rx_android_kotlin_version"
 }
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-1038'
+    ext.kotlin_version = '1.0.0-beta-1103'
     repositories {
         mavenCentral()
     }

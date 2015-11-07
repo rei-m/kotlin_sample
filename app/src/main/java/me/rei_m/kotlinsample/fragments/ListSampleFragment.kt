@@ -14,9 +14,10 @@ import rx.subscriptions.CompositeSubscription
 import rx.observers.Observers
 
 import me.rei_m.kotlinsample.R
-import me.rei_m.kotlinsample.models.AtndApi
+import me.rei_m.kotlinsample.network.AtndApi
 
-class ListSampleFragment : AbstractFragment(), AdapterView.OnItemClickListener {
+public class ListSampleFragment private constructor() : AbstractFragment(),
+        AdapterView.OnItemClickListener {
 
     private var mWordForSearch: String = ""
 
@@ -68,10 +69,11 @@ class ListSampleFragment : AbstractFragment(), AdapterView.OnItemClickListener {
                 { t ->
                     // onNext
                     mAdapter!!.add(t.title)
+                    mAdapter!!.notifyDataSetChanged()
                 },
                 { e ->
                     // onError
-                    println(e.message)
+                    println("Error!! ${e.message}")
                 },
                 {
                     // onComplete
@@ -79,16 +81,14 @@ class ListSampleFragment : AbstractFragment(), AdapterView.OnItemClickListener {
                 })
 
         // Observableを作成
-        val observable = AtndApi.request(mWordForSearch)
-
-        // Observableにobserverを登録してsubscribeする
-        val subscription = observable
+        // 配信時は新しいスレッド
+        // 監視者はメインスレッド
+        val observable = AtndApi.request(mWordForSearch, 1)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer)
 
-        // 購読を開始する
-        mSubscriptions.add(subscription);
+        // 購読を開始
+        mSubscriptions.add(observable.subscribe(observer))
 
         return view
     }

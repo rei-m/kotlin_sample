@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.RealmSampleInputFragment">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_todo_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:hint="新しいTODOを入力してください" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_register_todo"
+        android:text="登録する"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/edit_todo_name"
+        android:textSize="14sp" />
+
+</RelativeLayout>

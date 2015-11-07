@@ -4,4 +4,5 @@
     <string name="title_activity_list_sample">ListSampleActivity</string>
     <string name="title_activity_pager_sample">PagerSampleActivity</string>
     <string name="title_activity_rx_sample">RxSampleActivity</string>
+    <string name="title_activity_realm_sample">RealmSampleActivity</string>
 </resources>

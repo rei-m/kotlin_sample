@@ -2,16 +2,13 @@ package me.rei_m.kotlinsample
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.activity_main.*
 import kotlinx.android.synthetic.content_main.*
-import me.rei_m.kotlinsample.activities.ListSampleActivity
-import me.rei_m.kotlinsample.activities.PagerSampleActivity
-import me.rei_m.kotlinsample.activities.RxSampleActivity
+import me.rei_m.kotlinsample.activities.*
 
-class MainActivity : AppCompatActivity() {
+public class MainActivity : AbstractActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         open_reactive.setOnClickListener({ v ->
             startActivity(RxSampleActivity.createIntent(this))
+        })
+
+        open_realm.setOnClickListener({ v ->
+            startActivity(RealmSampleActivity.createIntent(this))
         })
 
         // FABイベント

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 
 import me.rei_m.kotlinsample.fragments.PagerSampleFragment
 
-class SamplePagerAdaptor(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+public class SamplePagerAdaptor(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         return PagerSampleFragment.newInstance(position)
