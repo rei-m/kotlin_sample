@@ -1,20 +1,21 @@
 package me.rei_m.kotlinsample.fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-import rx.subscriptions.CompositeSubscription
-import rx.observers.Observers
-
+import com.jakewharton.rxbinding.support.v4.widget.RxSwipeRefreshLayout
 import me.rei_m.kotlinsample.R
 import me.rei_m.kotlinsample.network.AtndApi
+import rx.android.schedulers.AndroidSchedulers
+import rx.observers.Observers
+import rx.schedulers.Schedulers
+import rx.subscriptions.CompositeSubscription
 
 public class ListSampleFragment private constructor() : AbstractFragment(),
         AdapterView.OnItemClickListener {
@@ -23,18 +24,14 @@ public class ListSampleFragment private constructor() : AbstractFragment(),
 
     private val mSubscriptions = CompositeSubscription()
 
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
     private var mListView: AbsListView? = null
     private var mAdapter: ArrayAdapter<String>? = null
 
-    companion object  {
+    companion object {
 
         private val ARG_WORD_FOR_SEARCH = "wordForSearch"
 
-        fun newInstance(wordForSearch: String) : ListSampleFragment {
+        fun newInstance(wordForSearch: String): ListSampleFragment {
             val fragment = ListSampleFragment()
             val args = Bundle()
             args.putString(ARG_WORD_FOR_SEARCH, wordForSearch)
@@ -61,15 +58,15 @@ public class ListSampleFragment private constructor() : AbstractFragment(),
 
         // ListViewにAdaptorとリスナをセット
         mListView = view.findViewById(R.id.list_event) as AbsListView
-        mListView!!.adapter = mAdapter
-        mListView!!.onItemClickListener = this
+        mListView?.adapter = mAdapter
+        mListView?.onItemClickListener = this
 
         // Observerを作成
         val observer = Observers.create<AtndApi.Companion.Entity>(
                 { t ->
                     // onNext
-                    mAdapter!!.add(t.title)
-                    mAdapter!!.notifyDataSetChanged()
+                    mAdapter?.add(t.title)
+                    mAdapter?.notifyDataSetChanged()
                 },
                 { e ->
                     // onError
@@ -77,7 +74,7 @@ public class ListSampleFragment private constructor() : AbstractFragment(),
                 },
                 {
                     // onComplete
-                    mAdapter!!.notifyDataSetChanged()
+                    mAdapter?.notifyDataSetChanged()
                 })
 
         // Observableを作成
@@ -87,8 +84,35 @@ public class ListSampleFragment private constructor() : AbstractFragment(),
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
 
+        val refreshLayout = view.findViewById(R.id.refresh) as SwipeRefreshLayout
+
+        // ローディング中のプログレスの色を設定
+        refreshLayout.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE)
+        refreshLayout.setProgressBackgroundColorSchemeColor(Color.LTGRAY)
+
+        val refreshLayoutRefreshing = RxSwipeRefreshLayout.refreshing(refreshLayout)
+        val refreshLayoutStream = RxSwipeRefreshLayout.refreshes(refreshLayout)
+
         // 購読を開始
+
+        // 初回のAPIコール
         mSubscriptions.add(observable.subscribe(observer))
+
+        // RefreshLayoutを監視
+        mSubscriptions.add(refreshLayoutStream.subscribe({
+
+            // ローディングが始まったらAPIコール
+            val subscription = AtndApi.request(mWordForSearch, mAdapter?.count!! + 1)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .finallyDo({
+                        // 読み込みが終わったらRefreshLayoutのローディング状態を解除
+                        refreshLayoutRefreshing.call(false)
+                    })
+                    .subscribe(observer)
+
+            mSubscriptions.add(subscription)
+        }))
 
         return view
     }
@@ -101,6 +125,8 @@ public class ListSampleFragment private constructor() : AbstractFragment(),
     }
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
+        val refreshLayout = activity.findViewById(R.id.refresh) as SwipeRefreshLayout
+        val refreshLayoutRefreshing = RxSwipeRefreshLayout.refreshing(refreshLayout)
+        refreshLayoutRefreshing.call(true)
     }
 }
